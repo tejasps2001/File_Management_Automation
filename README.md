@@ -11,3 +11,6 @@ The appropriate folders are these:
 * Videos: mp4, mkv
 
 If the file type matches none of the above, it stores it in Documents folder.
+
+The source folder can easily be changed by passing a command line argument.
+The file types for the destination folders can also be changed.
