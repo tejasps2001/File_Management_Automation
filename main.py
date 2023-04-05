@@ -19,7 +19,6 @@ def main():
                 os.path.join(source_folder, file),
                 os.path.join(home_directory, "Videos"),
             )
-            print(destination)
 
 
 def convert_filename(old_filename, source_folder):
