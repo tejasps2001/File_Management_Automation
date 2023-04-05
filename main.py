@@ -14,4 +14,5 @@ def convert_filename(old_filename):
 
 if __name__ == '__main__':
     source_folder = filedialog.askdirectory(mustexist=True)
+    home_directory = os.path.expanduser('~')
     main()
