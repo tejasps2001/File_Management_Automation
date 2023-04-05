@@ -1,10 +1,10 @@
 # File_Management_Automation
 
-Script to automate the organization of files and folders on my computer. 
+Script to automate the organization of files and folders on Linux/Windows computer. 
 
 Files in user-selected folder move to the appropriate folder based on their **file type**, after automatically **renaming** files if they contain spaces.
 
-The appropriate folders are these:
+The appropriate folders(present in the home directory) are these:
 * Documents: pdf, docx, xlsx, csv, ppt
 * Music: mp3, aac, ogg, flac, wav
 * Pictures: svg, png, jpg, jpeg, 
