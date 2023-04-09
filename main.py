@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import os
+import sys
 import shutil
 import logging
 
@@ -29,19 +30,17 @@ def file_transfer(source_folder, home_directory):
 
         # Detect file type and move to appropriate directory.
         if file.endswith((".mkv", ".mp4")):
-            destination = shutil.move(
-                os.path.join(source_folder, file),
-                os.path.join(home_directory, "Videos"),
-            )
-            destination = os.path.dirname(destination)
-            logging.info("Moved " + file + " to " + destination)
-            print(
-                "Moved \033[35m"
-                + file
-                + "\033[39m to \033[33m"
-                + destination
-                + "\033[39m"
-            )
+            videos(source_folder, file)
+
+
+def videos(source_folder, file):
+    destination = shutil.move(
+        os.path.join(source_folder, file),
+        os.path.join(home_directory, "Videos"),
+    )
+    destination = os.path.dirname(destination)
+    logging.info("Moved " + file + " to " + destination)
+    print("Moved \033[35m" + file + "\033[39m to \033[33m" + destination + "\033[39m")
 
 
 def convert_filename(old_filename, source_folder):
@@ -63,6 +62,9 @@ def convert_filename(old_filename, source_folder):
 
 def main():
     source_folder = filedialog.askdirectory(mustexist=True)
+    if source_folder == ():
+        print('You gotta give me a source. ¯\_(ツ)_/¯')
+        sys.exit()
     file_transfer(source_folder, home_directory)
 
 
