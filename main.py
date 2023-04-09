@@ -32,7 +32,15 @@ def file_transfer(source_folder, home_directory):
         if file.endswith((".mkv", ".mp4")):
             target = 'Videos'
             transfer(target, source_folder, file)
-
+        if file.endswith((".mp3", ".aac", ".ogg", ".flac", ".wav")):
+            target = 'Music'
+            transfer(target, source_folder, file)
+        if file.endswith((".svg", ".png", ".jpg", ".jpeg")):
+            target = 'Pictures'
+            transfer(target, source_folder, file)
+        if file.endswith((".pdf", ".docx", ".xlsx", ".csv", ".ppt")):
+            target = 'Documents'
+            transfer(target, source_folder, file)
 
 def transfer(target, source_folder, file):
     destination = shutil.move(
