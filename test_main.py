@@ -10,6 +10,9 @@ class TestMain(unittest.TestCase):
     def test_wrong_filename(self):
         self.f1 = open("file 1.txt", "w")
         self.f2 = open("file abc.txt", "w")
+        # Store the name and close the file objects because Windows can't access the files otherwise.
+        self.f1.close()
+        self.f2.close()
         self.assertEqual(
             "file_1.txt",
             os.path.basename(main.convert_filename("file 1.txt", os.getcwd())),
@@ -18,8 +21,6 @@ class TestMain(unittest.TestCase):
             "file_abc.txt",
             os.path.basename(main.convert_filename("file abc.txt", os.getcwd())),
         )
-        self.f1.close()
-        self.f2.close()
         os.remove(os.path.join(os.getcwd(), "file_1.txt"))
         os.remove(os.path.join(os.getcwd(), "file_abc.txt"))
 
@@ -30,15 +31,17 @@ class TestMain(unittest.TestCase):
         self.f3 = open(
             "test_video" + str(random.choice(range(1000, 9999))) + ".mkv", "wb"
         )
+        # Store the name and close the file objects because Windows can't access the files otherwise.
+        video = self.f3.name
+        self.f3.close()
         main.file_transfer(os.getcwd(), home_directory)
         with open(os.path.join(home_directory, "File-Transfer-Log.txt"), "r") as f:
             log_content = f.read()
         self.assertIn(
-            "Moved " + self.f3.name + " to /home/top2001/Videos",
+            "Moved " + video + " to " + os.path.join(home_directory, "Videos"),
             log_content,
         )
-        self.f3.close()
-        os.remove(os.path.join(home_directory, "Videos", self.f3.name))
+        os.remove(os.path.join(home_directory, "Videos", video))
 
     def test_transfer(self):
         home_directory = os.path.expanduser("~")
@@ -57,29 +60,34 @@ class TestMain(unittest.TestCase):
         self.doc = open(
             "test_doc" + str(random.choice(range(1000, 9999))) + ".xlsx", "wb"
         )
-        main.file_transfer(os.getcwd(), home_directory)
-        # Verify file transfers.
-        self.assertIn(
-            self.video.name, os.listdir(os.path.join(home_directory, "Videos"))
-        )
-        self.assertIn(
-            self.music.name, os.listdir(os.path.join(home_directory, "Music"))
-        )
-        self.assertIn(
-            self.picture.name, os.listdir(os.path.join(home_directory, "Pictures"))
-        )
-        self.assertIn(
-            self.doc.name, os.listdir(os.path.join(home_directory, "Documents"))
-        )
-        # Close file objects and delete files.
+        # Store the name and close the file objects because Windows can't access the files otherwise.
+        video = self.video.name
+        music = self.music.name
+        picture = self.picture.name
+        doc = self.doc.name
         self.video.close()
         self.music.close()
         self.picture.close()
         self.doc.close()
-        os.remove(os.path.join(home_directory, "Videos", self.video.name))
-        os.remove(os.path.join(home_directory, "Music", self.music.name))
-        os.remove(os.path.join(home_directory, "Pictures", self.picture.name))
-        os.remove(os.path.join(home_directory, "Documents", self.doc.name))
+        main.file_transfer(os.getcwd(), home_directory)
+        # Verify file transfers.
+        self.assertIn(
+            video, os.listdir(os.path.join(home_directory, "Videos"))
+        )
+        self.assertIn(
+            music, os.listdir(os.path.join(home_directory, "Music"))
+        )
+        self.assertIn(
+            picture, os.listdir(os.path.join(home_directory, "Pictures"))
+        )
+        self.assertIn(
+            doc, os.listdir(os.path.join(home_directory, "Documents"))
+        )
+        # Close file objects and delete files.
+        os.remove(os.path.join(home_directory, "Videos", video))
+        os.remove(os.path.join(home_directory, "Music", music))
+        os.remove(os.path.join(home_directory, "Pictures", picture))
+        os.remove(os.path.join(home_directory, "Documents", doc))
 
 
 if __name__ == "__main__":
