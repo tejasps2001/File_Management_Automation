@@ -30,13 +30,14 @@ def file_transfer(source_folder, home_directory):
 
         # Detect file type and move to appropriate directory.
         if file.endswith((".mkv", ".mp4")):
-            videos(source_folder, file)
+            target = 'Videos'
+            transfer(target, source_folder, file)
 
 
-def videos(source_folder, file):
+def transfer(target, source_folder, file):
     destination = shutil.move(
         os.path.join(source_folder, file),
-        os.path.join(home_directory, "Videos"),
+        os.path.join(home_directory, target),
     )
     destination = os.path.dirname(destination)
     logging.info("Moved " + file + " to " + destination)
