@@ -30,17 +30,18 @@ def file_transfer(source_folder, home_directory):
 
         # Detect file type and move to appropriate directory.
         if file.endswith((".mkv", ".mp4")):
-            target = 'Videos'
+            target = "Videos"
             transfer(target, source_folder, file)
         if file.endswith((".mp3", ".aac", ".ogg", ".flac", ".wav")):
-            target = 'Music'
+            target = "Music"
             transfer(target, source_folder, file)
         if file.endswith((".svg", ".png", ".jpg", ".jpeg")):
-            target = 'Pictures'
+            target = "Pictures"
             transfer(target, source_folder, file)
         if file.endswith((".pdf", ".docx", ".xlsx", ".csv", ".ppt")):
-            target = 'Documents'
+            target = "Documents"
             transfer(target, source_folder, file)
+
 
 def transfer(target, source_folder, file):
     destination = shutil.move(
@@ -72,7 +73,7 @@ def convert_filename(old_filename, source_folder):
 def main():
     source_folder = filedialog.askdirectory(mustexist=True)
     if source_folder == ():
-        print('You gotta give me a source. ¯\_(ツ)_/¯')
+        print("You gotta give me a source. ¯\_(ツ)_/¯")
         sys.exit()
     file_transfer(source_folder, home_directory)
 
