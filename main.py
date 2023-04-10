@@ -72,8 +72,8 @@ def convert_filename(old_filename, source_folder):
 
 def main():
     source_folder = filedialog.askdirectory(mustexist=True)
-    if source_folder == ():
-        print("You gotta give me a source. ¯\_(ツ)_/¯")
+    if source_folder == () or source_folder == '':
+        print("\n\nYou gotta give me a source. ¯\_(ツ)_/¯\n\n")
         sys.exit()
     file_transfer(source_folder, home_directory)
 
