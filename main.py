@@ -50,7 +50,8 @@ def transfer(target, source_folder, file):
     )
     destination = os.path.dirname(destination)
     logging.info("Moved " + file + " to " + destination)
-    print("Moved \033[35m" + file + "\033[39m to \033[33m" + destination + "\033[39m")
+    print("Moved \033[35m" + file +
+          "\033[39m to \033[33m" + destination + "\033[39m")
 
 
 def convert_filename(old_filename, source_folder):

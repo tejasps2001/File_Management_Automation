@@ -19,7 +19,8 @@ class TestMain(unittest.TestCase):
         )
         self.assertEqual(
             "file_abc.txt",
-            os.path.basename(main.convert_filename("file abc.txt", os.getcwd())),
+            os.path.basename(main.convert_filename(
+                "file abc.txt", os.getcwd())),
         )
         os.remove(os.path.join(os.getcwd(), "file_1.txt"))
         os.remove(os.path.join(os.getcwd(), "file_abc.txt"))
@@ -55,16 +56,37 @@ class TestMain(unittest.TestCase):
             "test_music" + str(random.choice(range(1000, 9999))) + ".mp3", "wb"
         )
         self.picture = open(
-            "test_picture" + str(random.choice(range(1000, 9999))) + ".jpg", "wb"
+            "test_picture" +
+            str(random.choice(range(1000, 9999))) + ".jpg", "wb"
         )
         self.doc = open(
             "test_doc" + str(random.choice(range(1000, 9999))) + ".xlsx", "wb"
         )
+<<<<<<< HEAD
         # Store the name and close the file objects because Windows can't access the files otherwise.
         video = self.video.name
         music = self.music.name
         picture = self.picture.name
         doc = self.doc.name
+=======
+        main.file_transfer(os.getcwd(), home_directory)
+        # Verify file transfers.
+        self.assertIn(
+            self.video.name, os.listdir(os.path.join(home_directory, "Videos"))
+        )
+        self.assertIn(
+            self.music.name, os.listdir(os.path.join(home_directory, "Music"))
+        )
+        self.assertIn(
+            self.picture.name, os.listdir(
+                os.path.join(home_directory, "Pictures"))
+        )
+        self.assertIn(
+            self.doc.name, os.listdir(
+                os.path.join(home_directory, "Documents"))
+        )
+        # Close file objects and delete files.
+>>>>>>> 4df588d (Auto-formatted code)
         self.video.close()
         self.music.close()
         self.picture.close()
